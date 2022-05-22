@@ -295,6 +295,7 @@ public class JugadorsMenu extends javax.swing.JFrame {
     private void llistarJugadorsBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llistarJugadorsBTNActionPerformed
         hidePanels();
         llistarJugadorsPanel.setVisible(true);
+        Controller.setPlayers();
         ArrayList<JugadorEntity> aJE = Controller.getPlayers();
         String llistaString = "<html>";
         for(int i = 0; i < aJE.size(); i++){

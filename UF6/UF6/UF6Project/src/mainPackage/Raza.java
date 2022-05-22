@@ -9,7 +9,7 @@ public enum Raza{
     ENANO ("Nan"),
     GNOMO ("Gnomo");
     
-    String desc;
+    public String desc;
     
     Raza(String desc){
         this.desc = desc;

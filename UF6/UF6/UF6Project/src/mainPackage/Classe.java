@@ -6,7 +6,7 @@ public enum Classe{
     MAGO ("Mag"),
     PICARO ("Murri");
     
-    String desc;
+    public String desc;
     
     Classe(String desc){
         this.desc = desc;

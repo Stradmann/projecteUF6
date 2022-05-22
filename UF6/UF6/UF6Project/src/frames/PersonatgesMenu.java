@@ -5,6 +5,14 @@
  */
 package frames;
 
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.JComboBox;
+import mainPackage.Classe;
+import mainPackage.Controller;
+import mainPackage.JugadorEntity;
+import mainPackage.Raza;
+
 /**
  *
  * @author enric
@@ -16,6 +24,7 @@ public class PersonatgesMenu extends javax.swing.JFrame {
      */
     public PersonatgesMenu() {
         initComponents();
+        hidePanels();
     }
 
     /**
@@ -66,7 +75,7 @@ public class PersonatgesMenu extends javax.swing.JFrame {
         nouPuntuacionsSelector = new javax.swing.JComboBox<>();
         NOU_PJ_TEXT06 = new javax.swing.JLabel();
         nouPJConfirmBTN = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        nouPJReRollBTN = new javax.swing.JButton();
         PersonatgesBackground = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,6 +87,11 @@ public class PersonatgesMenu extends javax.swing.JFrame {
         getContentPane().add(editaPJBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 160, 40));
 
         nouPJBTN.setText("<html><h3>Nou Personatge</h3></html>");
+        nouPJBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nouPJBTNActionPerformed(evt);
+            }
+        });
         getContentPane().add(nouPJBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 160, 40));
 
         borraPJBTN.setText("<html><h3>Borra Personatge</h3></html>");
@@ -90,24 +104,24 @@ public class PersonatgesMenu extends javax.swing.JFrame {
         nouPJPanel.setOpaque(false);
         nouPJPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        NOU_PJ_TEXT01.setForeground(new java.awt.Color(0, 255, 0));
+        NOU_PJ_TEXT01.setForeground(new java.awt.Color(204, 204, 204));
         NOU_PJ_TEXT01.setText("<html><p>Selecciona un jugador:</p></html>");
         nouPJPanel.add(NOU_PJ_TEXT01, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 22));
 
         nouPJPanel.add(nouPJSelectorJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 110, -1));
 
-        NOU_PJ_TEXT02.setForeground(new java.awt.Color(51, 255, 51));
+        NOU_PJ_TEXT02.setForeground(new java.awt.Color(204, 204, 204));
         NOU_PJ_TEXT02.setText("<html><p>Nom:</p></html>");
         nouPJPanel.add(NOU_PJ_TEXT02, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 51, -1, 20));
         nouPJPanel.add(nouNomPJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 51, 170, -1));
 
-        NOU_PJ_TEXT03.setForeground(new java.awt.Color(0, 255, 0));
+        NOU_PJ_TEXT03.setForeground(new java.awt.Color(204, 204, 204));
         NOU_PJ_TEXT03.setText("<html><p>Raça:</p></html>");
         nouPJPanel.add(NOU_PJ_TEXT03, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 89, -1, 20));
 
         nouPJPanel.add(nouPJSelectorRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 89, 110, -1));
 
-        NOU_PJ_TEXT04.setForeground(new java.awt.Color(0, 255, 0));
+        NOU_PJ_TEXT04.setForeground(new java.awt.Color(204, 204, 204));
         NOU_PJ_TEXT04.setText("<html><p>Classe:</p></html>");
         nouPJPanel.add(NOU_PJ_TEXT04, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 127, -1, 20));
 
@@ -205,8 +219,13 @@ public class PersonatgesMenu extends javax.swing.JFrame {
         nouPJConfirmBTN.setText("<html><h3>CREA</h3></html>");
         nouPJPanel.add(nouPJConfirmBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, 50));
 
-        jButton1.setText("<html><h5>Re-Roll</h5></html>");
-        nouPJPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 70, 20));
+        nouPJReRollBTN.setText("<html><h5>Re-Roll</h5></html>");
+        nouPJReRollBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nouPJReRollBTNActionPerformed(evt);
+            }
+        });
+        nouPJPanel.add(nouPJReRollBTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 70, 20));
 
         getContentPane().add(nouPJPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 330, 420));
 
@@ -216,8 +235,99 @@ public class PersonatgesMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void nouPJBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouPJBTNActionPerformed
+        hidePanels();
+        nouPJPanel.setVisible(true);
+        nouPJSelectorJugador.removeAllItems();
+        nouPJSelectorRaza.removeAllItems();
+        nouPJSelectorClasse.removeAllItems();
+        nouPuntuacionsSelector.removeAllItems();
+        Controller.setPlayers();
+        fillComboBoxWithPlayers(nouPJSelectorJugador, Controller.getPlayers());
+        fillComboBoxWithRazas(nouPJSelectorRaza);
+        fillComboBoxWithClasses(nouPJSelectorClasse);
+        fillComboBoxWithPunt(nouPuntuacionsSelector);
+    }//GEN-LAST:event_nouPJBTNActionPerformed
 
+    private void nouPJReRollBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouPJReRollBTNActionPerformed
+        nouPuntuacionsSelector.removeAllItems();
+        fillComboBoxWithPunt(nouPuntuacionsSelector);
+        inicialitzarPuntuacio();
+    }//GEN-LAST:event_nouPJReRollBTNActionPerformed
+
+    private void hidePanels(){
+        nouPJPanel.setVisible(false);
+    }
+    
+    private void fillComboBoxWithPlayers(JComboBox<String> playerSelector, ArrayList<JugadorEntity> players){
+        for (int i = 0; i < players.size(); i++) {
+            playerSelector.addItem(players.get(i).getNom());
+        }
+    }
+    
+    private void fillComboBoxWithRazas(JComboBox<String> razaSelector){
+        razaSelector.addItem(Raza.HUMANO.desc);
+        razaSelector.addItem(Raza.ELFO.desc);
+        razaSelector.addItem(Raza.ENANO.desc);
+        razaSelector.addItem(Raza.MEDIANO.desc);
+        razaSelector.addItem(Raza.GNOMO.desc);
+    }
+    
+    private void fillComboBoxWithClasses(JComboBox<String> classeSelector){
+        classeSelector.addItem(Classe.GUERRERO.desc);
+        classeSelector.addItem(Classe.MAGO.desc);
+        classeSelector.addItem(Classe.PICARO.desc);
+    }
+    
+    private void fillComboBoxWithPunt(JComboBox<String> puntuacioSelector){
+        for(int i = 0; i < 6; i++){
+            puntuacioSelector.addItem("" + tiradaDeCaracteristica());
+        }
+    }
+    
+    private void inicialitzarPuntuacio(){
+        nouFUEPunt.setText("<html><h4>0</h4></html>");
+        nouDESPunt.setText("<html><h4>0</h4></html>");
+        nouCONPunt.setText("<html><h4>0</h4></html>");
+        nouINTPunt.setText("<html><h4>0</h4></html>");
+        nouSABPunt.setText("<html><h4>0</h4></html>");
+        nouCARPunt.setText("<html><h4>0</h4></html>");
+    }
+    
+    private int tiradaDeCaracteristica(){
+        Random r = new Random();
+        int[] results = new int[4];
+        for(int i = 0; i < results.length; i++){
+            results[i] = r.nextInt(6) + 1;
+        }
+        results = descartaMin(results);
+        int total = 0;
+        for(int i = 0; i < results.length; i++){
+            total += results[i];
+        }
+        return total;
+    }
+    
+    private int[] descartaMin(int[] nArray){
+        int minIndex = 0;
+        int minValue = nArray[minIndex];
+        for(int i = 0; i < nArray.length; i++){
+            if(nArray[i] < minValue){
+                minIndex = i;
+                minValue = nArray[i];
+            }
+        }
+        int[] aux = new int[nArray.length - 1];
+        int j = 0;
+        for (int i = 0; i < nArray.length; i++){
+            if(i != minIndex){
+                aux[j] = nArray[i];
+                j++;
+            }
+        }
+        return aux;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton CARjRadioButton;
     private javax.swing.JRadioButton CONjRadioButton;
@@ -243,7 +353,6 @@ public class PersonatgesMenu extends javax.swing.JFrame {
     private javax.swing.JButton borraPJBTN;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton editaPJBTN;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton llistaPJBTN;
     private javax.swing.JLabel nouCARPunt;
     private javax.swing.JLabel nouCONPunt;
@@ -254,6 +363,7 @@ public class PersonatgesMenu extends javax.swing.JFrame {
     private javax.swing.JButton nouPJBTN;
     private javax.swing.JButton nouPJConfirmBTN;
     private javax.swing.JPanel nouPJPanel;
+    private javax.swing.JButton nouPJReRollBTN;
     private javax.swing.JComboBox<String> nouPJSelectorClasse;
     private javax.swing.JComboBox<String> nouPJSelectorJugador;
     private javax.swing.JComboBox<String> nouPJSelectorRaza;
