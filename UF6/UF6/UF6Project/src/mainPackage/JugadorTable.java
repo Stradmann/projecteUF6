@@ -66,7 +66,8 @@ public class JugadorTable extends ORMTable{
         return resultList;
     }
     
-    public int update(String nom, boolean arbitre, ORMEntity o)throws NullConnectionException, SQLException{
+    @Override
+    public int update(ORMEntity aux, ORMEntity o)throws NullConnectionException, SQLException{
         if (getBDConnection() == null) {
             throw new NullConnectionException();
         }
@@ -84,8 +85,9 @@ public class JugadorTable extends ORMTable{
         }
         
         JugadorEntity jE = (JugadorEntity) o;
+        JugadorEntity auxJE = (JugadorEntity) aux;
         
-        String sqlCommand = "UPDATE JUGADOR SET nom = '" + nom + "', arbitre = " + arbitre + " WHERE id = " + jE.getId() ;
+        String sqlCommand = "UPDATE JUGADOR SET nom = '" + auxJE.getNom() + "', arbitre = " + auxJE.isArbitre() + " WHERE id = " + jE.getId() ;
         
         Statement st = getBDConnection().getConnection().createStatement();
         int numFilesAfectades = st.executeUpdate(sqlCommand);
@@ -95,6 +97,7 @@ public class JugadorTable extends ORMTable{
         return numFilesAfectades;
     } 
     
+    @Override
     public int delete(ORMEntity o)throws NullConnectionException, SQLException{
         if (getBDConnection() == null) {
             throw new NullConnectionException();

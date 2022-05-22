@@ -356,13 +356,14 @@ public class JugadorsMenu extends javax.swing.JFrame {
 
     private void editaConfirmBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editaConfirmBTNActionPerformed
         JugadorEntity jE = Controller.getPlayers().get(editaSelectorJugador.getSelectedIndex());
+        JugadorEntity aux = new JugadorEntity(editaNomTextField.getText(), editaMasterToggleBTN.isSelected());
         if (editaNomTextField.getText().equals("") | editaNomTextField.getText() == null) {
             JFrame popUpFrame = new JFrame();
             String msg = "No pots deixar el nom buit";
             JOptionPane.showMessageDialog(popUpFrame, msg, "Falta un nom", JOptionPane.INFORMATION_MESSAGE);
         } else {
             try {
-                Controller.getJt().update(editaNomTextField.getText(), editaMasterToggleBTN.isSelected(), jE);
+                Controller.getJt().update(aux, jE);
                 JFrame popUpFrame = new JFrame();
                 String msg = "S'ha modificat el jugador amb exit";
                 JOptionPane.showMessageDialog(popUpFrame, msg, "Jugador modificat", JOptionPane.PLAIN_MESSAGE);
