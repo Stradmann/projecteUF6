@@ -75,7 +75,11 @@ public class mainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void personatgesBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personatgesBTNActionPerformed
-        // TODO add your handling code here:
+       if(Controller.getPersonatgesMenu() == null){
+           PersonatgesMenu personatgesMenu = new PersonatgesMenu();
+           Controller.setPersonatgesMenu(personatgesMenu);
+       }
+       Controller.getPersonatgesMenu().setVisible(true);
     }//GEN-LAST:event_personatgesBTNActionPerformed
 
     private void jugadorsBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugadorsBTNActionPerformed
