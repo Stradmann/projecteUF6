@@ -1,70 +1,74 @@
-
 package mainPackage;
 
+public class PersonatgeEntity extends ORMEntity {
 
-public class PersonatgeEntity extends ORMEntity{
-    
     //Atributs
     private int id;
     private int jugatPer;
     private String nom;
     private Raza raza;
     private Classe classe;
-    
+
     private int forsa;
     private int destresa;
     private int constitucio;
     private int inteligencia;
     private int sabiduria;
     private int carisma;
-    
+
     private int pg;
-    
+
     private BDConnection c;
-    
-    public PersonatgeEntity(int jugatPer, String nom, String raza, String classe, 
-            int forsa, int destresa, int constitucio, int inteligencia, int sabiduria, int carisma, int pg){
-        
+
+    public PersonatgeEntity(int jugatPer, String nom, String raza, String classe,
+            int forsa, int destresa, int constitucio, int inteligencia, int sabiduria, int carisma, int pg) {
+
         this.jugatPer = jugatPer;
         this.nom = nom;
-        switch(raza){
+        switch (raza) {
             case "Huma":
-                this.raza= Raza.HUMANO;
+                this.raza = Raza.HUMANO;
                 break;
             case "Elf":
-                this.raza= Raza.ELFO;
+                this.raza = Raza.ELFO;
                 break;
             case "Mitja":
-                this.raza= Raza.MEDIANO;
+                this.raza = Raza.MEDIANO;
                 break;
             case "Nan":
-                this.raza= Raza.ENANO;
+                this.raza = Raza.ENANO;
                 break;
             case "Gnomo":
-                this.raza= Raza.GNOMO;
+                this.raza = Raza.GNOMO;
                 break;
         }
 
-        switch(classe){
+        switch (classe) {
             case "Guerrer":
-                this.classe= Classe.GUERRERO;
+                this.classe = Classe.GUERRERO;
                 break;
             case "Mag":
-                this.classe= Classe.MAGO;
+                this.classe = Classe.MAGO;
                 break;
             case "Murri":
-                this.classe= Classe.PICARO;
+                this.classe = Classe.PICARO;
                 break;
         }
-        
+
         this.forsa = forsa;
         this.destresa = destresa;
         this.constitucio = constitucio;
         this.inteligencia = inteligencia;
         this.sabiduria = sabiduria;
         this.carisma = carisma;
-        
+
         this.pg = pg;
+    }
+
+    public PersonatgeEntity(int id, int jugatPer, String nom, String raza, String classe,
+            int forsa, int destresa, int constitucio, int inteligencia, int sabiduria, int carisma, int pg) {
+        this(jugatPer, nom, raza, classe, forsa, destresa, constitucio, inteligencia, sabiduria, carisma, pg);
+        this.id = id;
     }
 
     /**
@@ -240,5 +244,20 @@ public class PersonatgeEntity extends ORMEntity{
      */
     public void setC(BDConnection c) {
         this.c = c;
+    }
+    
+    @Override
+    public String toString(){
+        String res = "<div><h4>" + this.nom + "</h4>"
+                + "<p>" + this.raza.desc + ", " + this.classe.desc + "<p><br>"
+                + "<p>Fue: " + this.forsa + "</p>"
+                + "<p>Des: " + this.destresa + "</p>"
+                + "<p>Con: " + this.constitucio + "</p>"
+                + "<p>Int: " + this.inteligencia + "</p>"
+                + "<p>Sab: " + this.sabiduria + "</p>"
+                + "<p>Car: " + this.carisma + "</p>"
+                + "<p>PG MAX: " + this.pg + "</p>"
+                + "</div>";
+        return res;
     }
 }

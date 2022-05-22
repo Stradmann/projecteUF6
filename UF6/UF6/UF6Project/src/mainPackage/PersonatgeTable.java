@@ -55,6 +55,7 @@ public class PersonatgeTable extends ORMTable{
         while(resultat.next()){
             PersonatgeEntity p = new PersonatgeEntity(
                     
+                    resultat.getInt("id"),
                     resultat.getInt("jugatPer"),
                     resultat.getString("nom"),
                     resultat.getString("raza"),

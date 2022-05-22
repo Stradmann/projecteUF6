@@ -16,9 +16,8 @@ public class JugadorEntity extends ORMEntity{
     }
     
     public JugadorEntity(int id, String nom, boolean arbitre){
+        this(nom, arbitre);
         this.id = id;
-        this.nom = nom;
-        this.arbitre = arbitre;
     }
 
     /**
